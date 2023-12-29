@@ -34,7 +34,6 @@ require_once("guiconfig.inc");
 require_once("system.inc");
 
 ?>
-<script src="<?= cache_safe('/ui/js/moment-with-locales.min.js') ?>"></script>
 <script>
   var system_information_widget_cpu_data = []; // reference to measures
   var system_information_widget_cpu_chart = null; // reference to chart object
@@ -153,7 +152,7 @@ require_once("system.inc");
   /**
    * page setup
    */
-  $(window).on("load", function() {
+  addEventListener("turbo:load", (event) => {
       // draw cpu graph
       nv.addGraph(function() {
           system_information_widget_cpu_chart = nv.models.lineChart()

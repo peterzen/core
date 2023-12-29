@@ -38,6 +38,7 @@ $pagetitle .= html_safe(sprintf(' | %s.%s', $config['system']['hostname'], $conf
     <meta name="description" content="" />
     <meta name="copyright" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+    <meta name="turbo-cache-control" content="no-cache">
 
     <title><?= $pagetitle ?></title>
 
@@ -78,7 +79,7 @@ $pagetitle .= html_safe(sprintf(' | %s.%s', $config['system']['hostname'], $conf
     <link rel="shortcut icon" href="<?= cache_safe("/ui/themes/{$themename}/build/images/favicon.png") ?>">
 
     <!-- legacy browser functions -->
-    <script src="<?= cache_safe("/ui/js/polyfills.js") ?>"></script>
+    <script src="<?= cache_safe("/ui/js/polyfills.js") ?>" data-turbo-eval="false"></script>
 
     <!-- Stylesheet for fancy select/dropdown -->
     <link rel="stylesheet" type="text/css" href="<?= cache_safe(get_themed_filename("/css/bootstrap-select.css")) ?>">
@@ -96,36 +97,65 @@ $pagetitle .= html_safe(sprintf(' | %s.%s', $config['system']['hostname'], $conf
     <link rel="stylesheet" type="text/css" href="<?= cache_safe(get_themed_filename("/css/bootstrap-datepicker3.min.css")) ?>">
 
     <!-- JQuery -->
-    <script src="/ui/js/jquery-3.5.1.min.js"></script>
+    <script src="/ui/js/jquery-3.5.1.min.js" data-turbo-eval="false"></script>
+
+    <!-- Bootgrid (grid system from http://www.jquery-bootgrid.com/ ) -->
+    <script src="/ui/js/jquery.bootgrid.js" data-turbo-eval="false"></script>
+    <script src="/ui/js/opnsense_bootgrid_plugin.js" data-turbo-eval="false"></script>
+    <script src="/ui/js/opnsense_ui.js" data-turbo-eval="false"></script>
+    <script src="/ui/js/jquery-sortable.js" data-turbo-eval="false"></script>
+    <script src="/ui/js/tokenize2.js" data-turbo-eval="false"></script>
+
+    <!-- color picker -->
+    <link rel="stylesheet" type="text/css" href="<?= cache_safe(get_themed_filename('/css/pick-a-color-1.2.3.min.css')) ?>">
+    <script src="<?= cache_safe('/ui/js/pick-a-color-1.2.3.min.js') ?>" data-turbo-eval="false"></script>
+    <script src="<?= cache_safe('/ui/js/tinycolor-1.4.1.min.js') ?>" data-turbo-eval="false"></script>
 
     <!-- datepicker -->
-    <script src="<?= cache_safe("/ui/js/bootstrap-datepicker.min.js") ?>"></script>
+    <script src="<?= cache_safe("/ui/js/bootstrap-datepicker.min.js") ?>" data-turbo-eval="false"></script>
 
     <!-- d3 -->
-    <script src="<?= cache_safe("/ui/js/d3.min.js") ?>"></script>
+    <script src="<?= cache_safe("/ui/js/d3.min.js") ?>" data-turbo-eval="false"></script>
 
     <!-- nvd3 -->
-    <script src="<?= cache_safe("/ui/js/nv.d3.min.js") ?>"></script>
+    <script src="<?= cache_safe("/ui/js/nv.d3.min.js") ?>" data-turbo-eval="false"></script>
 
     <!-- append some helper functions to integrate into the legacy code -->
-    <script src="<?= cache_safe("/javascript/opnsense_legacy.js") ?>"></script>
+    <script src="<?= cache_safe("/javascript/opnsense_legacy.js") ?>" data-turbo-eval="false"></script>
 
     <!-- opnsense non legacy helper functions -->
-    <script src="<?= cache_safe("/ui/js/opnsense.js") ?>"></script>
+    <script src="<?= cache_safe("/ui/js/opnsense.js") ?>" data-turbo-eval="false"></script>
 
     <!-- opnsense non legacy theme support functions -->
-    <script src="<?= cache_safe("/ui/js/opnsense_theme.js") ?>"></script>
+    <script src="<?= cache_safe("/ui/js/opnsense_theme.js") ?>" data-turbo-eval="false"></script>
 
     <!-- Bootstrap type ahead -->
-    <script src="<?= cache_safe("/ui/js/bootstrap3-typeahead.min.js") ?>"></script>
+    <script src="<?= cache_safe("/ui/js/bootstrap3-typeahead.min.js") ?>" data-turbo-eval="false"></script>
 
-    <script src="<?= cache_safe("/ui/js/opnsense_status.js") ?>"></script>
+    <script src="<?= cache_safe("/ui/js/opnsense_status.js") ?>" data-turbo-eval="false"></script>
+
+    <!-- bootstrap script -->
+    <script src="/<?= cache_safe('ui/js/bootstrap.min.js') ?>" data-turbo-eval="false"></script>
+    <!-- Fancy select with search options -->
+    <script src="<?= cache_safe('/ui/js/bootstrap-select.min.js') ?>" data-turbo-eval="false"></script>
+    <!-- bootstrap dialog -->
+    <script src="<?= cache_safe('/ui/js/bootstrap-dialog.min.js') ?>" data-turbo-eval="false"></script>
+
+    <script src="<?= cache_safe('/ui/js/turbo.js') ?>" data-turbo-eval="false"></script>
+
+    <script src="<?= cache_safe('/ui/js/moment-with-locales.min.js') ?>" data-turbo-eval="false"></script>
 
     <script>
     //<![CDATA[
-    $( document ).ready(function() {
+    addEventListener("turbo:load", (event) => {
+      console.log("# turbo:load");
+
+      // trigger Bootstrap.js
+      document.dispatchEvent(new Event('DOMContentLoaded'));
+
       $('[data-toggle="tooltip"]').tooltip();
       $("input").not("[autocomplete]").attr("autocomplete","off");
+      $(".selectpicker").selectpicker("refresh");
 
       // hide empty menu items
       $('#mainmenu > div > .collapse').each(function(){

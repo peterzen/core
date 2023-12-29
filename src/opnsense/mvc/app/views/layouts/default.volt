@@ -10,6 +10,7 @@
     <meta name="description" content="" />
     <meta name="copyright" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+    <meta name="turbo-cache-control" content="no-cache">
 
     <title>{{headTitle|default("OPNsense") }} | {{system_hostname}}.{{system_domain}}</title>
     {% set theme_name = ui_theme|default('opnsense') %}
@@ -35,12 +36,12 @@
 
     <!-- script imports -->
     {% for filename in javascript_files -%}
-    <script src="{{ cache_safe(filename) }}"></script>
+    <script src="{{ cache_safe(filename) }}" data-turbo-eval="false"></script>
     {% endfor %}
 
     <script>
             // setup default scripting after page loading.
-            $( document ).ready(function() {
+            addEventListener("turbo:load", (event) => {
                 // hook into jquery ajax requests to ensure csrf handling.
                 $.ajaxSetup({
                     'beforeSend': function(xhr) {
@@ -275,7 +276,7 @@
           </div>
         </header>
         <!-- page content -->
-        <section class="page-content-main">
+        <section class="page-content-main" data-turbo-temporary>
           <div class="container-fluid">
             <div class="row">
                 <section class="col-xs-12">

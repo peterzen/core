@@ -139,15 +139,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             dnsmasq_configure_do();
             plugins_configure('dhcp');
 
+            http_response_code(422);
             header(url_safe('Location: /services_dnsmasq.php'));
             exit;
         }
+        http_response_code(422);
     } elseif (isset($pconfig['apply'])) {
         filter_configure();
         system_resolver_configure();
         dnsmasq_configure_do();
         plugins_configure('dhcp');
         clear_subsystem_dirty('hosts');
+        http_response_code(422);
         header(url_safe('Location: /services_dnsmasq.php'));
         exit;
     } elseif (!empty($pconfig['act']) && $pconfig['act'] == 'del') {

@@ -27,7 +27,7 @@
 
 <script>
 
-   $( document ).ready(function() {
+    addEventListener("turbo:load", (event) => {
       /**
        * get the isSubsystemDirty value and print a notice
        */

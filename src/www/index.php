@@ -98,7 +98,7 @@ include("fbegin.inc");?>
 <?php
   if (isset($config['trigger_initial_wizard']) || isset($_GET['wizard_done'])): ?>
   <script>
-      $( document ).ready(function() {
+      addEventListener("turbo:load", (event) => {
         $(".page-content-head:first").hide();
       });
   </script>
@@ -158,7 +158,6 @@ include("fbegin.inc");?>
   // normal dashboard
   else:?>
 
-<script src="<?= cache_safe('/ui/js/jquery-sortable.js') ?>"></script>
 <script>
   function addWidget(selectedDiv) {
       $('#'+selectedDiv).show();
@@ -255,7 +254,7 @@ include("fbegin.inc");?>
 </script>
 
 <script>
-  $( document ).ready(function() {
+  addEventListener("turbo:load", (event) => {
       // rearrange widgets to stored column
       $(".widgetdiv").each(function(){
           var widget = $(this);

@@ -67,7 +67,11 @@ class ControllerBase extends ControllerRoot
           '/ui/js/bootstrap.min.js',
           '/ui/js/bootstrap-select.min.js',
           // bootstrap dialog
-          '/ui/js/bootstrap-dialog.min.js'
+          '/ui/js/bootstrap-dialog.min.js',
+          '/ui/js/turbo.js',
+          '/javascript/opnsense_legacy.js',
+          '/ui/js/pick-a-color-1.2.3.min.js',
+          '/ui/js/tinycolor-1.4.1.min.js'
         ];
     }
 
@@ -88,7 +92,8 @@ class ControllerBase extends ControllerRoot
             // JQuery Tokenize2 (https://zellerda.github.io/Tokenize2/)
             '/css/tokenize2.css',
             // Bootgrid (grid system from http://www.jquery-bootgrid.com/ )
-            '/css/jquery.bootgrid.css'
+            '/css/jquery.bootgrid.css',
+            '/css/pick-a-color-1.2.3.min.css'
         ];
     }
 
