@@ -1,3 +1,5 @@
+*
+!/src/
 *.DS_Store
 *.codekit
 *.mo
@@ -13,6 +15,5 @@
 /src/opnsense/changelog
 /src/www/wpad.dat
 /src/opnsense/version/*
-!/src/opnsense/version/core.in
 .idea/
 /src/opnsense/www/.htrouter.php
